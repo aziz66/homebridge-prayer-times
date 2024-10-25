@@ -21,14 +21,6 @@
 >
 > Once Homebridge v2.0 has been released, you can remove the `-beta.0` in both places.
 
-> [!IMPORTANT]
-> **Node v22 Information**
->
-> This template currently has a
-> - `package.json -> engines.node` value of `"^18.20.4 || ^20.16.0 || ^22.5.1"`
->
-> This is to remind developers that plugins should be supporting Node v22 from October 2024.
-
 ---
 
 This is a template Homebridge dynamic platform plugin and can be used as a base to help you get started developing your own plugin.
@@ -81,6 +73,8 @@ Open the [`src/settings.ts`](./src/settings.ts) file and change the default valu
 Open the [`config.schema.json`](./config.schema.json) file and change the following attribute:
 
 - `pluginAlias` - set this to match the `PLATFORM_NAME` you defined in the previous step.
+
+See the [Homebridge API docs](https://developers.homebridge.io/#/config-schema#default-values) for more details on the other attributes you can set in the `config.schema.json` file.
 
 ### Build Plugin
 

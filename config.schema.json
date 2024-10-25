@@ -2,6 +2,7 @@
   "pluginAlias": "ExampleHomebridgePlugin",
   "pluginType": "platform",
   "singular": true,
+  "strictValidation": false,
   "schema": {
     "type": "object",
     "properties": {

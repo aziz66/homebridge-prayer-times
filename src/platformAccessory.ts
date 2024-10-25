@@ -47,7 +47,7 @@ export class ExamplePlatformAccessory {
 
     // register handlers for the Brightness Characteristic
     this.service.getCharacteristic(this.platform.Characteristic.Brightness)
-      .onSet(this.setBrightness.bind(this)); // SET - bind to the 'setBrightness` method below
+      .onSet(this.setBrightness.bind(this)); // SET - bind to the `setBrightness` method below
 
     /**
      * Creating multiple services of the same type.
@@ -110,6 +110,8 @@ export class ExamplePlatformAccessory {
    *
    * If your device takes time to respond you should update the status of your device
    * asynchronously instead using the `updateCharacteristic` method instead.
+   * In this case, you may decide not to implement `onGet` handlers, which may speed up
+   * the responsiveness of your device in the Home app.
 
    * @example
    * this.service.updateCharacteristic(this.platform.Characteristic.On, true)
