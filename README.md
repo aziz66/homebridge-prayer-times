@@ -191,17 +191,22 @@ You can then submit your plugin to the Homebridge Verified list for review.
 The most up-to-date criteria can be found [here](https://github.com/homebridge/verified#requirements).
 For reference, the current criteria are:
 
-- The plugin must successfully install.
-- The plugin must implement the [Homebridge Plugin Settings GUI](https://github.com/oznu/homebridge-config-ui-x/wiki/Developers:-Plugin-Settings-GUI).
-- The plugin must not start unless it is configured.
-- The plugin must not execute post-install scripts that modify the users' system in any way.
-- The plugin must not contain any analytics or calls that enable you to track the user.
-- The plugin must not throw unhandled exceptions, the plugin must catch and log its own errors.
-- The plugin must be published to npm and the source code available on GitHub.
-  - A GitHub release - with patch notes - should be created for every new version of your plugin.
-- The plugin must run on all [supported LTS versions of Node.js](https://github.com/homebridge/homebridge/wiki/How-To-Update-Node.js), at the time of writing this is Node.js v16 and v18.
-- The plugin must not require the user to run Homebridge in a TTY or with non-standard startup parameters, even for initial configuration.
-- If the plugin needs to write files to disk (cache, keys, etc.), it must store them inside the Homebridge storage directory.
+- **General**
+  - The plugin must be of type [dynamic platform](https://developers.homebridge.io/#/#dynamic-platform-template).
+  - The plugin must not offer the same nor less functionality than that of any existing **verified** plugin.
+- **Repo**
+  - The plugin must be published to NPM and the source code available on a GitHub repository, with issues enabled.
+  - A GitHub release should be created for every new version of your plugin, with release notes.
+- **Environment**
+  - The plugin must run on all [supported LTS versions of Node.js](https://github.com/homebridge/homebridge/wiki/How-To-Update-Node.js), at the time of writing this is Node v18, v20 and v22.
+  - The plugin must successfully install and not start unless it is configured.
+  - The plugin must not execute post-install scripts that modify the users' system in any way.
+  - The plugin must not require the user to run Homebridge in a TTY or with non-standard startup parameters, even for initial configuration.
+- **Codebase**
+  - The plugin must implement the [Homebridge Plugin Settings GUI](https://developers.homebridge.io/#/config-schema).
+  - The plugin must not contain any analytics or calls that enable you to track the user.
+  - If the plugin needs to write files to disk (cache, keys, etc.), it must store them inside the Homebridge storage directory.
+  - The plugin must not throw unhandled exceptions, the plugin must catch and log its own errors.
 
 ### Useful Links
 
