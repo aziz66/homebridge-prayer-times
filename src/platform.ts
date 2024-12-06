@@ -19,7 +19,10 @@ export class ExampleHomebridgePlatform implements DynamicPlatformPlugin {
   public readonly accessories: Map<string, PlatformAccessory> = new Map();
   public readonly discoveredCacheUUIDs: string[] = [];
 
+  // This is only required when using Custom Services and Characteristics not support by HomeKit
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   public readonly CustomServices: any;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   public readonly CustomCharacteristics: any;
 
   constructor(

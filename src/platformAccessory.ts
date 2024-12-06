@@ -34,7 +34,8 @@ export class ExamplePlatformAccessory {
 
     if (accessory.context.device.CustomService) {
       // This is only required when using Custom Services and Characteristics not support by HomeKit
-      this.service = this.accessory.getService(this.platform.CustomServices[accessory.context.device.CustomService]) || this.accessory.addService(this.platform.CustomServices[accessory.context.device.CustomService]);
+      this.service = this.accessory.getService(this.platform.CustomServices[accessory.context.device.CustomService]) ||
+        this.accessory.addService(this.platform.CustomServices[accessory.context.device.CustomService]);
       this.platform.log.debug('this.service', this.service);
     } else {
       this.service = this.accessory.getService(this.platform.Service.Lightbulb) || this.accessory.addService(this.platform.Service.Lightbulb);
