@@ -100,7 +100,7 @@ homebridge -D
 
 ### Watch For Changes and Build Automatically
 
-If you want to have your code compile automatically as you make changes, and restart Homebridge automatically between changes, you first need to add your plugin as a platform in `~/.homebridge/config.json`:
+If you want to have your code compile automatically as you make changes, and restart Homebridge automatically between changes, you first need to add your plugin as a platform in `./test/hbConfig/config.json`:
 ```
 {
 ...

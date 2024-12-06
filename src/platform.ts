@@ -3,6 +3,9 @@ import type { API, Characteristic, DynamicPlatformPlugin, Logging, PlatformAcces
 import { ExamplePlatformAccessory } from './platformAccessory.js';
 import { PLATFORM_NAME, PLUGIN_NAME } from './settings.js';
 
+// This is only required when using Custom Services and Characteristics not support by HomeKit
+import { EveHomeKitTypes } from 'homebridge-lib/EveHomeKitTypes';
+
 /**
  * HomebridgePlatform
  * This class is the main constructor for your plugin, this is where you should
@@ -16,6 +19,9 @@ export class ExampleHomebridgePlatform implements DynamicPlatformPlugin {
   public readonly accessories: Map<string, PlatformAccessory> = new Map();
   public readonly discoveredCacheUUIDs: string[] = [];
 
+  public readonly CustomServices: any;
+  public readonly CustomCharacteristics: any;
+
   constructor(
     public readonly log: Logging,
     public readonly config: PlatformConfig,
@@ -23,6 +29,10 @@ export class ExampleHomebridgePlatform implements DynamicPlatformPlugin {
   ) {
     this.Service = api.hap.Service;
     this.Characteristic = api.hap.Characteristic;
+
+    // This is only required when using Custom Services and Characteristics not support by HomeKit
+    this.CustomServices = new EveHomeKitTypes(this.api).Services;
+    this.CustomCharacteristics = new EveHomeKitTypes(this.api).Characteristics;
 
     this.log.debug('Finished initializing platform:', this.config.name);
 
@@ -65,6 +75,12 @@ export class ExampleHomebridgePlatform implements DynamicPlatformPlugin {
       {
         exampleUniqueId: 'EFGH',
         exampleDisplayName: 'Kitchen',
+      },
+      {
+        // This is an example of a device which uses a Custom Service
+        exampleUniqueId: 'IJKL',
+        exampleDisplayName: 'Backyard',
+        CustomService: 'AirPressureSensor',
       },
     ];
 
