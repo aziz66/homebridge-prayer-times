@@ -5,11 +5,12 @@
   "strictValidation": false,
   "schema": {
     "type": "object",
+    "required": ["name"],
+    "additionalProperties": false,
     "properties": {
       "name": {
         "title": "Name",
         "type": "string",
-        "required": true,
         "default": "Example Dynamic Platform"
       }
     }
