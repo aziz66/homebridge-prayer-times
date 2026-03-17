@@ -14,6 +14,10 @@
   "bugs": {
     "url": "https://github.com/aziz66/homebridge-prayer-times/issues"
   },
+  "funding": {
+    "type": "ko-fi",
+    "url": "https://ko-fi.com/aziz66"
+  },
   "keywords": [
     "homebridge-plugin",
     "homekit",
