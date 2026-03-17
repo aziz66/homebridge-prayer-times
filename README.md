@@ -1,3 +1,23 @@
+<p align="center">
+
+<img src="https://raw.githubusercontent.com/homebridge/branding/latest/logos/homebridge-color-round-stylized.png" width="150">
+
+</p>
+
+<p align="center">
+<a href="https://www.npmjs.com/package/homebridge-prayer-times"><img src="https://img.shields.io/npm/v/homebridge-prayer-times?style=for-the-badge" alt="npm version"></a>
+<a href="https://www.npmjs.com/package/homebridge-prayer-times"><img src="https://img.shields.io/npm/dt/homebridge-prayer-times?style=for-the-badge" alt="npm downloads"></a>
+<a href="https://github.com/aziz66/homebridge-prayer-times/stargazers"><img src="https://img.shields.io/github/stars/aziz66/homebridge-prayer-times?style=for-the-badge" alt="GitHub stars"></a>
+<br>
+<a href="https://github.com/aziz66/homebridge-prayer-times/issues"><img src="https://img.shields.io/github/issues/aziz66/homebridge-prayer-times?style=for-the-badge" alt="GitHub issues"></a>
+<a href="https://github.com/aziz66/homebridge-prayer-times"><img src="https://img.shields.io/github/last-commit/aziz66/homebridge-prayer-times?style=for-the-badge" alt="GitHub last commit"></a>
+<a href="https://github.com/aziz66/homebridge-prayer-times/releases"><img src="https://img.shields.io/github/v/release/aziz66/homebridge-prayer-times?style=for-the-badge" alt="GitHub release"></a>
+<br>
+<a href="https://www.npmjs.com/package/homebridge-prayer-times"><img src="https://img.shields.io/node/v/homebridge-prayer-times?style=for-the-badge" alt="Node.js version"></a>
+<a href="https://www.npmjs.com/package/homebridge-prayer-times"><img src="https://img.shields.io/npm/l/homebridge-prayer-times?style=for-the-badge" alt="license"></a>
+<a href="https://ko-fi.com/aziz66"><img src="https://img.shields.io/badge/Ko--fi-Support%20Me-FF5E5B?style=for-the-badge&logo=ko-fi&logoColor=white" alt="Ko-fi"></a>
+</p>
+
 # homebridge-prayer-times
 
 Islamic prayer times as HomeKit sensors. Automate your home around salah times — dim lights at Maghrib, turn on lights at Fajr, and more.
