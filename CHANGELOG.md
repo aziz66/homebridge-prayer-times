@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.0.3 (2026-03-17)
+
+### Bug Fixes
+
+- **Stale sensor reset** — all sensors are now reset to their default state (motion off, contact closed) before scheduling. Previously, changing the city or timezone in the config would leave sensors from the old config stuck in their active state.
+
 ## 1.0.2 (2026-03-17)
 
 ### Bug Fixes

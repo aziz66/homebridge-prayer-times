@@ -165,6 +165,15 @@ export class PrayerTimesPlatform implements DynamicPlatformPlugin {
 
     this.retryCount = 0;
 
+    // Reset all sensors before scheduling — clears stale state from previous config
+    for (const acc of this.prayerAccessories.values()) {
+      acc.setMotionDetected(false);
+      acc.setContactState(false);
+    }
+    for (const acc of this.preAdhanAccessories.values()) {
+      acc.setMotionDetected(false);
+    }
+
     // Log resolved location and timezone so users can verify their config
     this.logResolvedLocation();
     this.log.info(`Scheduling timezone: ${result.timezone}`);
