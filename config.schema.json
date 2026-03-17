@@ -1,17 +1,149 @@
 {
-  "pluginAlias": "ExampleHomebridgePlugin",
+  "pluginAlias": "PrayerTimes",
   "pluginType": "platform",
   "singular": true,
-  "strictValidation": false,
+  "headerDisplay": "Islamic prayer times as HomeKit sensors. Automate your home around salah times.",
+  "footerDisplay": "Prayer times powered by [AlAdhan API](https://aladhan.com)",
   "schema": {
     "type": "object",
-    "required": ["name"],
-    "additionalProperties": false,
     "properties": {
       "name": {
-        "title": "Name",
+        "title": "Plugin Name",
         "type": "string",
-        "default": "Example Dynamic Platform"
+        "default": "Prayer Times",
+        "required": true
+      },
+      "location": {
+        "title": "Location Settings",
+        "type": "object",
+        "properties": {
+          "mode": {
+            "title": "Location Mode",
+            "type": "string",
+            "default": "city",
+            "oneOf": [
+              { "title": "City & Country", "enum": ["city"] },
+              { "title": "Coordinates (Latitude/Longitude)", "enum": ["coordinates"] }
+            ]
+          },
+          "city": {
+            "title": "City",
+            "type": "string",
+            "placeholder": "e.g. Dubai",
+            "condition": { "functionBody": "return model.location.mode === 'city'" }
+          },
+          "country": {
+            "title": "Country",
+            "type": "string",
+            "placeholder": "e.g. United Arab Emirates",
+            "condition": { "functionBody": "return model.location.mode === 'city'" }
+          },
+          "latitude": {
+            "title": "Latitude",
+            "type": "number",
+            "placeholder": "e.g. 25.2048",
+            "condition": { "functionBody": "return model.location.mode === 'coordinates'" }
+          },
+          "longitude": {
+            "title": "Longitude",
+            "type": "number",
+            "placeholder": "e.g. 55.2708",
+            "condition": { "functionBody": "return model.location.mode === 'coordinates'" }
+          }
+        }
+      },
+      "calculationMethod": {
+        "title": "Calculation Method",
+        "type": "integer",
+        "default": 4,
+        "oneOf": [
+          { "title": "Islamic Society of North America (ISNA)", "enum": [2] },
+          { "title": "Muslim World League (MWL)", "enum": [3] },
+          { "title": "Umm Al-Qura University, Makkah", "enum": [4] },
+          { "title": "Egyptian General Authority of Survey", "enum": [5] },
+          { "title": "Institute of Geophysics, University of Tehran", "enum": [7] },
+          { "title": "Gulf Region", "enum": [8] },
+          { "title": "Kuwait", "enum": [9] },
+          { "title": "Qatar", "enum": [10] },
+          { "title": "Singapore (MUIS)", "enum": [11] },
+          { "title": "France (UOIF)", "enum": [12] },
+          { "title": "Turkey (Diyanet)", "enum": [13] },
+          { "title": "Russia", "enum": [14] },
+          { "title": "Moonsighting Committee", "enum": [15] },
+          { "title": "Dubai (unofficial)", "enum": [16] },
+          { "title": "JAKIM (Malaysia)", "enum": [17] },
+          { "title": "Tunisia", "enum": [18] },
+          { "title": "Algeria", "enum": [19] },
+          { "title": "KEMENAG (Indonesia)", "enum": [20] },
+          { "title": "Morocco", "enum": [21] },
+          { "title": "Portugal", "enum": [22] },
+          { "title": "Jordan", "enum": [23] },
+          { "title": "Karachi", "enum": [1] },
+          { "title": "Shia Ithna-Ashari", "enum": [0] }
+        ]
+      },
+      "school": {
+        "title": "Asr Calculation",
+        "type": "integer",
+        "default": 0,
+        "oneOf": [
+          { "title": "Shafi / Maliki / Hanbali (standard)", "enum": [0] },
+          { "title": "Hanafi (later Asr)", "enum": [1] }
+        ]
+      },
+      "timezone": {
+        "title": "Timezone",
+        "type": "string",
+        "placeholder": "e.g. Asia/Dubai (leave blank for auto-detect)",
+        "description": "IANA timezone. Leave blank to use system timezone."
+      },
+      "prayers": {
+        "title": "Prayers to Expose",
+        "type": "object",
+        "properties": {
+          "fajr": { "title": "Fajr", "type": "boolean", "default": true },
+          "sunrise": { "title": "Sunrise", "type": "boolean", "default": true },
+          "dhuhr": { "title": "Dhuhr", "type": "boolean", "default": true },
+          "asr": { "title": "Asr", "type": "boolean", "default": true },
+          "maghrib": { "title": "Maghrib", "type": "boolean", "default": true },
+          "isha": { "title": "Isha", "type": "boolean", "default": true }
+        }
+      },
+      "motionDuration": {
+        "title": "Motion Sensor Active Duration (minutes)",
+        "type": "integer",
+        "default": 30,
+        "minimum": 1,
+        "maximum": 120,
+        "description": "How long the motion sensor stays triggered after adhan time."
+      },
+      "windowDuration": {
+        "title": "Prayer Window Duration (minutes)",
+        "type": "integer",
+        "default": 30,
+        "minimum": 1,
+        "maximum": 360,
+        "description": "How long the contact sensor stays open after adhan time. Use this for automations like 'while prayer window is open, keep lights dim'."
+      },
+      "preAdhanAlert": {
+        "title": "Pre-Adhan Alert",
+        "type": "boolean",
+        "default": false,
+        "description": "Create additional motion sensors that trigger before each prayer."
+      },
+      "preAdhanMinutes": {
+        "title": "Pre-Adhan Alert Minutes",
+        "type": "integer",
+        "default": 15,
+        "minimum": 5,
+        "maximum": 60,
+        "condition": { "functionBody": "return model.preAdhanAlert === true" }
+      },
+      "showCountdown": {
+        "title": "Next Prayer Countdown",
+        "type": "boolean",
+        "default": false,
+        "description": "Show minutes until next prayer as a light sensor value."
       }
     }
   }

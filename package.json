@@ -1,36 +1,46 @@
 {
-  "name": "homebridge-plugin-name",
-  "displayName": "Plugin Name",
+  "name": "homebridge-prayer-times",
+  "displayName": "Prayer Times",
   "type": "module",
   "version": "1.0.0",
-  "private": true,
-  "description": "A short description about what your plugin does.",
-  "author": "Your Name",
+  "description": "Islamic prayer times as HomeKit sensors. Automate your home around salah times.",
+  "author": "Abdulaziz",
   "license": "Apache-2.0",
-  "homepage": "https://github.com/USERNAME/GITHUB_PROJECT_NAME#readme",
+  "homepage": "https://github.com/aziz66/homebridge-prayer-times#readme",
   "repository": {
     "type": "git",
-    "url": "https://github.com/USERNAME/GITHUB_PROJECT_NAME.git"
+    "url": "https://github.com/aziz66/homebridge-prayer-times.git"
   },
   "bugs": {
-    "url": "https://github.com/USERNAME/GITHUB_PROJECT_NAME/issues"
+    "url": "https://github.com/aziz66/homebridge-prayer-times/issues"
   },
   "keywords": [
-    "homebridge-plugin"
+    "homebridge-plugin",
+    "homekit",
+    "prayer-times",
+    "islamic",
+    "muslim",
+    "adhan",
+    "salah",
+    "fajr",
+    "dhuhr",
+    "asr",
+    "maghrib",
+    "isha",
+    "ramadan",
+    "automation",
+    "smart-home"
   ],
   "main": "dist/index.js",
   "engines": {
-    "node": "^20.18.0 || ^22.10.0 || ^24.0.0",
-    "homebridge": "^1.8.0 || ^2.0.0-beta.0"
+    "node": "^18.17.0 || ^20.9.0 || ^22.0.0",
+    "homebridge": "^1.6.0 || ^2.0.0"
   },
   "scripts": {
     "build": "rimraf ./dist && tsc",
     "lint": "eslint . --max-warnings=0",
     "prepublishOnly": "npm run lint && npm run build",
     "watch": "npm run build && npm link && nodemon"
-  },
-  "dependencies": {
-    "homebridge-lib": "^7.1.12"
   },
   "devDependencies": {
     "@eslint/js": "^9.39.1",
@@ -39,8 +49,10 @@
     "homebridge": "^2.0.0-beta.55",
     "nodemon": "^3.1.11",
     "rimraf": "^6.1.0",
-    "ts-node": "^10.9.2",
     "typescript": "^5.9.3",
     "typescript-eslint": "^8.46.4"
+  },
+  "peerDependencies": {
+    "homebridge": "^1.6.0 || ^2.0.0"
   }
 }
