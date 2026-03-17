@@ -19,13 +19,13 @@ export class AladhanApi {
   async fetchTimings(date?: Date): Promise<FetchResult | null> {
     const d = date ?? new Date();
 
-    // Check cache first — we need cached meta.timezone to determine "today"
+    // Check cache first — use config timezone for date boundary detection
     const cached = await this.readCache();
-    const effectiveTz = cached?.meta?.timezone || this.config.timezone;
+    const effectiveTz = this.config.timezone || cached?.meta?.timezone;
     const dateStr = this.formatDate(d, effectiveTz);
     if (cached && cached.date === dateStr) {
       this.log.debug('Using cached prayer times for', dateStr);
-      const tz = cached.meta?.timezone || this.config.timezone
+      const tz = this.config.timezone || cached.meta?.timezone
         || Intl.DateTimeFormat().resolvedOptions().timeZone;
       return { timings: cached.timings, timezone: tz };
     }
@@ -63,7 +63,7 @@ export class AladhanApi {
         `Prayer times fetched — timezone: ${meta.timezone}, method: ${meta.method.name}`,
       );
 
-      const tz = meta.timezone || this.config.timezone
+      const tz = this.config.timezone || meta.timezone
         || Intl.DateTimeFormat().resolvedOptions().timeZone;
       return { timings, timezone: tz };
     } catch (error) {

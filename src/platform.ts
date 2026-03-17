@@ -165,8 +165,9 @@ export class PrayerTimesPlatform implements DynamicPlatformPlugin {
 
     this.retryCount = 0;
 
-    // Log resolved location so users can verify their city config is correct
+    // Log resolved location and timezone so users can verify their config
     this.logResolvedLocation();
+    this.log.info(`Scheduling timezone: ${result.timezone}`);
 
     const callbacks: SchedulerCallbacks = {
       onMotionDetected: (prayer, detected) => {
