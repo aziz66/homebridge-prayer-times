@@ -4,10 +4,16 @@
 
 ### Bug Fixes
 
-- **Timezone fix** — prayer times are now scheduled in the configured timezone, not the machine's local timezone. Previously, if the machine was set to UTC but the location was Asia/Riyadh (UTC+3), prayers would be scheduled 3 hours late. The config timezone always takes priority (config > API-detected > machine local), which is critical for Docker/Ubuntu setups that default to UTC.
+- **Timezone priority** — config timezone now always takes priority over the API-detected timezone. Critical for Docker/Ubuntu setups where the system timezone is UTC and users explicitly set their timezone in the plugin config.
+- **Scheduling timezone log** — the plugin now logs which timezone is being used for scheduling so users can verify their config.
+
+## 1.0.1 (2026-03-17)
+
+### Bug Fixes
+
+- **Timezone fix** — prayer times are now scheduled in the configured timezone, not the machine's local timezone. Previously, if the machine was set to UTC but the location was Asia/Riyadh (UTC+3), prayers would be scheduled 3 hours late.
 - **Date calculation** — the API date request now uses the configured timezone to determine "today", fixing edge cases near midnight where the machine date differs from the location date.
 - **Daily refresh** — the 00:05 daily refresh now fires at 00:05 in the configured timezone, not the machine's timezone.
-- **Scheduling timezone log** — the plugin now logs which timezone is being used for scheduling so users can verify their config.
 - **Node.js 24** — added `^24.0.0` to supported engines.
 
 ## 1.0.0 (2025-03-17)
