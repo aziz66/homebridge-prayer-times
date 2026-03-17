@@ -3,7 +3,7 @@ import path from 'node:path';
 
 import type { Logging } from 'homebridge';
 
-import type { AladhanApiResponse, CachedPrayerTimes, PrayerTimesConfig, PrayerTimings } from './settings.js';
+import type { AladhanApiResponse, CachedPrayerTimes, FetchResult, PrayerTimesConfig, PrayerTimings } from './settings.js';
 
 export class AladhanApi {
   private readonly cachePath: string;
@@ -16,21 +16,28 @@ export class AladhanApi {
     this.cachePath = path.join(storagePath, 'prayer-times-cache.json');
   }
 
-  async fetchTimings(date?: Date): Promise<PrayerTimings | null> {
+  async fetchTimings(date?: Date): Promise<FetchResult | null> {
     const d = date ?? new Date();
-    const dateStr = `${String(d.getDate()).padStart(2, '0')}-${String(d.getMonth() + 1).padStart(2, '0')}-${d.getFullYear()}`;
+    const dateStr = this.formatDate(d);
 
     // Check cache first
     const cached = await this.readCache();
     if (cached && cached.date === dateStr) {
       this.log.debug('Using cached prayer times for', dateStr);
-      return cached.timings;
+      const tz = this.config.timezone || cached.meta?.timezone
+        || Intl.DateTimeFormat().resolvedOptions().timeZone;
+      return { timings: cached.timings, timezone: tz };
     }
 
     // Build API URL
     const url = this.buildUrl(dateStr);
     if (!url) {
-      return cached?.timings ?? null;
+      if (cached) {
+        const tz = this.config.timezone || cached.meta?.timezone
+          || Intl.DateTimeFormat().resolvedOptions().timeZone;
+        return { timings: cached.timings, timezone: tz };
+      }
+      return null;
     }
 
     try {
@@ -55,17 +62,35 @@ export class AladhanApi {
         `Prayer times fetched — timezone: ${meta.timezone}, method: ${meta.method.name}`,
       );
 
-      return timings;
+      const tz = this.config.timezone || meta.timezone;
+      return { timings, timezone: tz };
     } catch (error) {
       this.log.error('Failed to fetch prayer times:', (error as Error).message);
 
       if (cached) {
         this.log.warn('Using cached prayer times (may be stale)');
-        return cached.timings;
+        const tz = this.config.timezone || cached.meta?.timezone
+          || Intl.DateTimeFormat().resolvedOptions().timeZone;
+        return { timings: cached.timings, timezone: tz };
       }
 
       return null;
     }
+  }
+
+  private formatDate(d: Date): string {
+    const tz = this.config.timezone;
+    if (tz) {
+      try {
+        // Get today's date in the configured timezone
+        const todayStr = d.toLocaleDateString('en-CA', { timeZone: tz });
+        const [year, month, day] = todayStr.split('-');
+        return `${day}-${month}-${year}`;
+      } catch {
+        // Invalid timezone, fall through to machine local
+      }
+    }
+    return `${String(d.getDate()).padStart(2, '0')}-${String(d.getMonth() + 1).padStart(2, '0')}-${d.getFullYear()}`;
   }
 
   private buildUrl(dateStr: string): string | null {

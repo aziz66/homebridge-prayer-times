@@ -1,5 +1,14 @@
 # Changelog
 
+## 1.0.1 (2026-03-17)
+
+### Bug Fixes
+
+- **Timezone fix** — prayer times are now scheduled in the location's timezone (from API or config), not the machine's local timezone. Previously, if the machine was set to UTC but the location was Asia/Riyadh (UTC+3), prayers would be scheduled 3 hours late.
+- **Date calculation** — the API date request now uses the configured timezone to determine "today", fixing edge cases near midnight where the machine date differs from the location date.
+- **Daily refresh** — the 00:05 daily refresh now fires at 00:05 in the location's timezone, not the machine's timezone.
+- **Node.js 24** — added `^24.0.0` to supported engines.
+
 ## 1.0.0 (2025-03-17)
 
 ### Features

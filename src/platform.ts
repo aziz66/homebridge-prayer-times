@@ -141,9 +141,9 @@ export class PrayerTimesPlatform implements DynamicPlatformPlugin {
       this.retryTimer = null;
     }
 
-    const timings = await this.apiClient.fetchTimings();
+    const result = await this.apiClient.fetchTimings();
 
-    if (!timings) {
+    if (!result) {
       this.retryCount++;
       // Always keep retrying — use backoff: 5min for first 3, then 30min, then 60min
       let delayMin: number;
@@ -198,7 +198,7 @@ export class PrayerTimesPlatform implements DynamicPlatformPlugin {
       },
     };
 
-    this.scheduler.scheduleDay(timings, this.ptConfig, callbacks);
+    this.scheduler.scheduleDay(result.timings, this.ptConfig, callbacks, result.timezone);
   }
 
   private logResolvedLocation(): void {

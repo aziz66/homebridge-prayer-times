@@ -2,7 +2,7 @@ import type { PlatformConfig } from 'homebridge';
 
 export const PLATFORM_NAME = 'PrayerTimes';
 export const PLUGIN_NAME = 'homebridge-prayer-times';
-export const PLUGIN_VERSION = '1.0.0';
+export const PLUGIN_VERSION = '1.0.1';
 
 export const PRAYERS = ['Fajr', 'Sunrise', 'Dhuhr', 'Asr', 'Maghrib', 'Isha'] as const;
 export type PrayerName = typeof PRAYERS[number];
@@ -67,6 +67,11 @@ export interface CachedPrayerTimes {
     timezone: string;
     method: string;
   };
+}
+
+export interface FetchResult {
+  timings: PrayerTimings;
+  timezone: string;
 }
 
 export interface SchedulerCallbacks {
