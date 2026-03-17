@@ -5,6 +5,14 @@ export default tseslint.config(
   {
     ignores: ['dist/**'],
   },
+  eslint.configs.recommended,
+  ...tseslint.configs.recommended,
+  {
+    languageOptions: {
+      ecmaVersion: 2022,
+      sourceType: 'module',
+    },
+  },
   {
     rules: {
       'quotes': ['error', 'single'],
@@ -24,12 +32,4 @@ export default tseslint.config(
       '@typescript-eslint/no-unused-vars': ['error', { 'caughtErrors': 'none' }],
     },
   },
-  {
-    languageOptions: {
-      ecmaVersion: 2022,
-      sourceType: 'module',
-    },
-  },
-  eslint.configs.recommended,
-  ...tseslint.configs.recommended,
 );

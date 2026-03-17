@@ -1,31 +1,23 @@
 {
   "bridge": {
-    "name": "PluginTemplate",
+    "name": "PrayerTimesTest",
     "username": "AA:BB:CC:DD:EE:FF",
     "port": 51826,
     "pin": "031-45-154"
   },
-  "description": "HomeBridge HTTP Status Control",
-  "plugins": [
-    "homebridge-plugin-name",
-    "homebridge-config-ui-x"
-  ],
   "platforms": [
     {
-      "name": "Config",
-      "port": 8581,
-      "auth": "none",
-      "theme": "auto",
-      "tempUnits": "c",
-      "lang": "auto",
-      "sudo": false,
-      "platform": "config",
-      "debug": false
-    },
-    {
-      "name": "homebridge-plugin-name",
-      "platform": "ExampleHomebridgePlugin"
+      "name": "Prayer Times",
+      "platform": "PrayerTimes",
+      "location": {
+        "mode": "city",
+        "city": "Dubai",
+        "country": "UAE"
+      },
+      "calculationMethod": 4,
+      "school": 0,
+      "motionDuration": 30,
+      "windowDuration": 30
     }
-  ],
-  "accessories": []
+  ]
 }
