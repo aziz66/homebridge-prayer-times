@@ -2,7 +2,7 @@
   "name": "homebridge-prayer-times",
   "displayName": "Prayer Times",
   "type": "module",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Islamic prayer times as HomeKit sensors. Automate your home around salah times.",
   "author": "Abdulaziz",
   "license": "Apache-2.0",
