@@ -25,6 +25,9 @@ test/
 # Logs
 *.log
 
+# Lock file
+package-lock.json
+
 # npm pack output
 *.tgz
 
