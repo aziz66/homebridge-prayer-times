@@ -39,7 +39,9 @@ Each prayer appears as a native HomeKit accessory in your Home app. The plugin u
 
 - **Motion Sensor** — triggers at adhan time, stays active for `motionDuration` minutes. This is what drives your automations.
 - **Contact Sensor** — opens at adhan time, stays open for `windowDuration` minutes. Use for conditional automations like "while prayer window is open, keep lights dim."
-- **Light Sensor** *(optional)* — shows minutes until the next prayer as a lux value. Enables threshold automations like "when countdown < 10, flash a light."
+- **Countdown Timer** *(optional)* — shows time until the next prayer. Two display modes:
+  - **Timer (Valve)** *(default)* — native auto-decrementing countdown in Apple Home
+  - **Light Sensor (Lux)** — minutes as lux value for threshold automations like "when countdown < 10, flash a light"
 
 Optional **pre-adhan alert** sensors trigger before each prayer to give you a heads-up.
 
@@ -116,7 +118,8 @@ Configure via the Homebridge UI settings form, or add manually to `config.json`:
 | `windowDuration` | 30 | Minutes the contact sensor stays open after adhan |
 | `preAdhanAlert` | false | Create sensors that trigger before each prayer |
 | `preAdhanMinutes` | 15 | Minutes before prayer for pre-adhan alert |
-| `showCountdown` | false | Light sensor showing minutes until next prayer |
+| `showCountdown` | false | Show countdown timer until next prayer |
+| `countdownStyle` | valve | `valve` for native timer, `lux` for light sensor |
 | `prayers.fajr` | true | Enable/disable individual prayers |
 
 ### Sensor Behavior
