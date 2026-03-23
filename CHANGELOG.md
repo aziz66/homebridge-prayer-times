@@ -4,7 +4,7 @@
 
 ### Features
 
-- **Valve countdown timer** — the "Next Prayer" countdown now defaults to a Valve service with `RemainingDuration`, which shows a native auto-decrementing timer in Apple Home (same approach as washer/sprinkler timers).
+- **Valve countdown timer** — the "Next Prayer" countdown now defaults to a Valve service with `RemainingDuration`, which shows a native auto-decrementing timer in Apple Home.
 - **Countdown style setting** — users can choose between "Timer (Valve)" (default) or "Light Sensor (Lux)" in the config. The lux mode preserves the original behavior for threshold-based automations.
 - Switching modes automatically removes the old service type and creates the new one.
 
