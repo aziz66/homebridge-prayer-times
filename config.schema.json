@@ -143,7 +143,18 @@
         "title": "Next Prayer Countdown",
         "type": "boolean",
         "default": false,
-        "description": "Show minutes until next prayer as a light sensor value."
+        "description": "Show a countdown timer until the next prayer."
+      },
+      "countdownStyle": {
+        "title": "Countdown Display Style",
+        "type": "string",
+        "default": "valve",
+        "oneOf": [
+          { "title": "Timer (Valve) — native countdown in Apple Home", "enum": ["valve"] },
+          { "title": "Light Sensor (Lux) — minutes as lux value for threshold automations", "enum": ["lux"] }
+        ],
+        "description": "Valve shows a native auto-decrementing timer. Light sensor shows minutes as lux value.",
+        "condition": { "functionBody": "return model.showCountdown === true" }
       }
     }
   }

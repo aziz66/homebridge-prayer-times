@@ -94,15 +94,18 @@ export class PreAdhanAccessory {
 }
 
 export class CountdownAccessory {
-  private readonly lightService: Service;
+  private readonly service: Service;
   private readonly Char: typeof Characteristic;
+  private readonly mode: 'valve' | 'lux';
 
   constructor(
     private readonly platform: PrayerTimesPlatform,
     private readonly accessory: PlatformAccessory,
+    mode: 'valve' | 'lux' = 'valve',
   ) {
     const { Service: Svc, Characteristic: Char } = platform;
     this.Char = Char;
+    this.mode = mode;
 
     this.accessory.getService(Svc.AccessoryInformation)!
       .setCharacteristic(Char.Manufacturer, 'AlAdhan')
@@ -110,17 +113,61 @@ export class CountdownAccessory {
       .setCharacteristic(Char.SerialNumber, 'prayer-countdown')
       .setCharacteristic(Char.FirmwareRevision, PLUGIN_VERSION);
 
-    this.lightService = this.accessory.getService(Svc.LightSensor)
-      || this.accessory.addService(Svc.LightSensor, 'Next Prayer');
+    // Remove the old service type if switching modes
+    const oldLight = this.accessory.getService(Svc.LightSensor);
+    const oldValve = this.accessory.getService(Svc.Valve);
+    if (mode === 'valve' && oldLight) {
+      this.accessory.removeService(oldLight);
+    } else if (mode === 'lux' && oldValve) {
+      this.accessory.removeService(oldValve);
+    }
 
-    this.lightService.getCharacteristic(Char.CurrentAmbientLightLevel)
-      .onGet(() => this.accessory.context.countdownMinutes ?? 0.0001);
+    if (mode === 'valve') {
+      this.service = this.accessory.getService(Svc.Valve)
+        || this.accessory.addService(Svc.Valve, 'Next Prayer');
+
+      this.service.getCharacteristic(Char.ValveType)
+        .updateValue(Char.ValveType.GENERIC_VALVE);
+
+      this.service.getCharacteristic(Char.Active)
+        .onGet(() => this.accessory.context.countdownActive
+          ? Char.Active.ACTIVE : Char.Active.INACTIVE)
+        .onSet(() => {
+          // Read-only — ignore set attempts
+        });
+
+      this.service.getCharacteristic(Char.InUse)
+        .onGet(() => this.accessory.context.countdownActive
+          ? Char.InUse.IN_USE : Char.InUse.NOT_IN_USE);
+
+      this.service.getCharacteristic(Char.RemainingDuration)
+        .setProps({ maxValue: 86400 })
+        .onGet(() => this.accessory.context.countdownSeconds ?? 0);
+    } else {
+      this.service = this.accessory.getService(Svc.LightSensor)
+        || this.accessory.addService(Svc.LightSensor, 'Next Prayer');
+
+      this.service.getCharacteristic(Char.CurrentAmbientLightLevel)
+        .onGet(() => this.accessory.context.countdownMinutes ?? 0.0001);
+    }
   }
 
   updateCountdown(minutes: number): void {
-    const value = Math.min(Math.max(minutes, 0.0001), 100000);
-    this.accessory.context.countdownMinutes = value;
-    this.lightService.updateCharacteristic(this.Char.CurrentAmbientLightLevel, value);
+    if (this.mode === 'valve') {
+      const seconds = Math.min(Math.max(minutes * 60, 0), 86400);
+      const isActive = minutes > 0;
+      this.accessory.context.countdownSeconds = seconds;
+      this.accessory.context.countdownActive = isActive;
+      this.service.updateCharacteristic(this.Char.Active,
+        isActive ? this.Char.Active.ACTIVE : this.Char.Active.INACTIVE);
+      this.service.updateCharacteristic(this.Char.InUse,
+        isActive ? this.Char.InUse.IN_USE : this.Char.InUse.NOT_IN_USE);
+      this.service.updateCharacteristic(this.Char.RemainingDuration, seconds);
+    } else {
+      const value = Math.min(Math.max(minutes, 0.0001), 100000);
+      this.accessory.context.countdownMinutes = value;
+      this.service.updateCharacteristic(this.Char.CurrentAmbientLightLevel, value);
+    }
     this.platform.log.debug(`Countdown: ${minutes} minutes`);
   }
 }

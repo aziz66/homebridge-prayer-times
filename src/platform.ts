@@ -109,14 +109,15 @@ export class PrayerTimesPlatform implements DynamicPlatformPlugin {
       discoveredUUIDs.push(uuid);
 
       const existing = this.accessories.get(uuid);
+      const countdownStyle = this.ptConfig.countdownStyle ?? 'valve';
       if (existing) {
         this.log.info('Restoring:', existing.displayName);
-        this.countdownAccessory = new CountdownAccessory(this, existing);
+        this.countdownAccessory = new CountdownAccessory(this, existing, countdownStyle);
       } else {
         this.log.info('Adding countdown accessory');
         const accessory = new this.api.platformAccessory('Next Prayer', uuid);
         accessory.context.type = 'countdown';
-        this.countdownAccessory = new CountdownAccessory(this, accessory);
+        this.countdownAccessory = new CountdownAccessory(this, accessory, countdownStyle);
         this.api.registerPlatformAccessories(PLUGIN_NAME, PLATFORM_NAME, [accessory]);
       }
     }
