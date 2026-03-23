@@ -6,12 +6,12 @@
   "footerDisplay": "Prayer times powered by [AlAdhan API](https://aladhan.com)",
   "schema": {
     "type": "object",
+    "required": ["name"],
     "properties": {
       "name": {
         "title": "Plugin Name",
         "type": "string",
-        "default": "Prayer Times",
-        "required": true
+        "default": "Prayer Times"
       },
       "location": {
         "title": "Location Settings",

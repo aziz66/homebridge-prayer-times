@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.0.4 (2026-03-23)
+
+### Bug Fixes
+
+- **Config schema** — fixed `required` property to use JSON Schema array syntax instead of boolean on individual fields (Homebridge verification requirement).
+- **Dependencies** — removed `package-lock.json` from repo to prevent verification checker from flagging homebridge/hap-nodejs as runtime dependencies.
+
 ## 1.0.3 (2026-03-17)
 
 ### Bug Fixes
