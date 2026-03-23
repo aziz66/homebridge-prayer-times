@@ -5,6 +5,7 @@
 </p>
 
 <p align="center">
+<a href="https://github.com/homebridge/homebridge/wiki/Verified-Plugins"><img src="https://img.shields.io/badge/homebridge-verified-blueviolet?color=%23491F59&style=for-the-badge&logoColor=%23FFFFFF&logo=homebridge" alt="verified-by-homebridge"></a>
 <a href="https://www.npmjs.com/package/homebridge-prayer-times"><img src="https://img.shields.io/npm/v/homebridge-prayer-times?style=for-the-badge" alt="npm version"></a>
 <a href="https://www.npmjs.com/package/homebridge-prayer-times"><img src="https://img.shields.io/npm/dt/homebridge-prayer-times?style=for-the-badge" alt="npm downloads"></a>
 <a href="https://github.com/aziz66/homebridge-prayer-times/stargazers"><img src="https://img.shields.io/github/stars/aziz66/homebridge-prayer-times?style=for-the-badge" alt="GitHub stars"></a>
